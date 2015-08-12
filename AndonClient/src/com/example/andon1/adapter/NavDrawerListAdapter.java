@@ -1,10 +1,9 @@
-package com.example.andon.adapter;
+package com.example.andon1.adapter;
 
 import java.util.ArrayList;
 
-import com.example.andon.R;
-import com.example.andon.model.NavDrawerItem;
-
+import com.example.andon1.R;
+import com.example.andon1.model.NavDrawerItem;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class NavDrawerListAdapter extends BaseAdapter{
+public class NavDrawerListAdapter extends BaseAdapter {
 	
 	private Context context;
 	private ArrayList<NavDrawerItem> navDrawerItems;
@@ -67,4 +66,3 @@ public class NavDrawerListAdapter extends BaseAdapter{
 	}
 
 }
-

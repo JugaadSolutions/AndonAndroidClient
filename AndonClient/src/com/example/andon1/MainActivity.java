@@ -1,15 +1,18 @@
-package com.example.andon;
+package com.example.andon1;
 
 import java.util.ArrayList;
 
-import com.example.andon.adapter.NavDrawerListAdapter;
-import com.example.andon.model.NavDrawerItem;
+
+
+import com.example.andon1.adapter.NavDrawerListAdapter;
+import com.example.andon1.model.NavDrawerItem;
+
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
+
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -22,7 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class MainActivity extends Activity {
-
+	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -39,10 +42,14 @@ public class MainActivity extends Activity {
 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
+	
+	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         mTitle = mDrawerTitle = getTitle();
 
 		// load slide menu items
@@ -100,8 +107,9 @@ public class MainActivity extends Activity {
 			// on first time display view for first nav item
 			displayView(0);
 		}
-	}
-	/**
+    }
+    
+    /**
 	 * Slide menu item click listener
 	 * */
 	private class SlideMenuClickListener implements
@@ -114,6 +122,90 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	 @Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			// toggle nav drawer on selecting action bar app icon/title
+			if (mDrawerToggle.onOptionsItemSelected(item)) {
+				return true;
+			}
+			// Handle action bar actions click
+			switch (item.getItemId()) {
+			case R.id.action_settings:
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+			}
+		}
+
+		/* *
+		 * Called when invalidateOptionsMenu() is triggered
+		 */
+		@Override
+		public boolean onPrepareOptionsMenu(Menu menu) {
+			// if nav drawer is opened, hide the action items
+			boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+			menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+			return super.onPrepareOptionsMenu(menu);
+		}
+
+		/**
+		 * Diplaying fragment view for selected nav drawer list item
+		 * */
+		private void displayView(int position) {
+			// update the main content by replacing fragments
+			Fragment fragment = null;
+			switch (position) {
+			case 0:
+				fragment = new RealTimeIssueFragment();
+				break;
+			case 1:
+				fragment = new ReportFragment();
+				break;
+						
+			default:
+				break;
+			}
+
+			if (fragment != null) {
+				FragmentManager fragmentManager = getFragmentManager();
+				fragmentManager.beginTransaction()
+				.replace(R.id.frame_container, fragment).commit();
+
+				// update selected item and title, then close the drawer
+				mDrawerList.setItemChecked(position, true);
+				mDrawerList.setSelection(position);
+				setTitle(navMenuTitles[position]);
+				mDrawerLayout.closeDrawer(mDrawerList);
+			} else {
+				// error in creating fragment
+				Log.e("MainActivity", "Error in creating fragment");
+			}
+		}
+
+		@Override
+		public void setTitle(CharSequence title) {
+			mTitle = title;
+			getActionBar().setTitle(mTitle);
+		}
+
+		/**
+		 * When using the ActionBarDrawerToggle, you must call it during
+		 * onPostCreate() and onConfigurationChanged()...
+		 */
+
+		@Override
+		protected void onPostCreate(Bundle savedInstanceState) {
+			super.onPostCreate(savedInstanceState);
+			// Sync the toggle state after onRestoreInstanceState has occurred.
+			mDrawerToggle.syncState();
+		}
+
+		@Override
+		public void onConfigurationChanged(Configuration newConfig) {
+			super.onConfigurationChanged(newConfig);
+			// Pass any configuration change to the drawer toggls
+			mDrawerToggle.onConfigurationChanged(newConfig);
+		}
 
 
     @Override
@@ -122,90 +214,5 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    @Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// toggle nav drawer on selecting action bar app icon/title
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
-		// Handle action bar actions click
-		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	/* *
-	 * Called when invalidateOptionsMenu() is triggered
-	 */
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		// if nav drawer is opened, hide the action items
-		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-		return super.onPrepareOptionsMenu(menu);
-	}
-
-	/**
-	 * Diplaying fragment view for selected nav drawer list item
-	 * */
-	private void displayView(int position) {
-		// update the main content by replacing fragments
-		Fragment fragment = null;
-		switch (position) {
-		case 0:
-			fragment = new RealTimeIssueFragment();
-			break;
-	//	case 1:
-			startActivity(new Intent(getApplicationContext(),ReportFragmentActivity.class));
-			//break;
-		
-		default:
-			break;
-		}
-
-		if (fragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
-			fragmentManager.beginTransaction()
-			.replace(R.id.frame_container, fragment).commit();
-
-			// update selected item and title, then close the drawer
-			mDrawerList.setItemChecked(position, true);
-			mDrawerList.setSelection(position);
-			setTitle(navMenuTitles[position]);
-			mDrawerLayout.closeDrawer(mDrawerList);
-		} else {
-			// error in creating fragment
-			Log.e("MainActivity", "Error in creating fragment");
-		}
-	}
-
-	@Override
-	public void setTitle(CharSequence title) {
-		mTitle = title;
-		getActionBar().setTitle(mTitle);
-	}
-
-	/**
-	 * When using the ActionBarDrawerToggle, you must call it during
-	 * onPostCreate() and onConfigurationChanged()...
-	 */
-
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		// Sync the toggle state after onRestoreInstanceState has occurred.
-		mDrawerToggle.syncState();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		// Pass any configuration change to the drawer toggls
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
-
     
 }

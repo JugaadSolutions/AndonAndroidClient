@@ -1,4 +1,6 @@
-package com.example.andon;
+package com.example.andon1;
+
+
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -6,11 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-
 public class RealTimeIssueFragment extends Fragment {
-public RealTimeIssueFragment(){}
 	
+	public RealTimeIssueFragment(){}
+
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -21,6 +22,5 @@ public RealTimeIssueFragment(){}
     }
 
 	
+
 }
-
-

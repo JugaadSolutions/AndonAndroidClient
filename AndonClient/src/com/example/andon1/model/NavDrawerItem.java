@@ -1,7 +1,7 @@
-package com.example.andon.model;
+package com.example.andon1.model;
 
 public class NavDrawerItem {
-
+	
 	private String title;
 	private int icon;
 
@@ -37,5 +37,5 @@ public class NavDrawerItem {
 		this.icon = icon;
 	}
 	
-	}
 
+}
