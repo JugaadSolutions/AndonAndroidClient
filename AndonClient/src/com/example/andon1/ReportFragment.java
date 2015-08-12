@@ -15,7 +15,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-public class ReportFragment extends Fragment {
+public class ReportFragment extends DialogFragment
+implements DatePickerDialog.OnDateSetListener
+
+{
+	
 	public ReportFragment(){}
 	  
 
@@ -124,9 +128,8 @@ public class ReportFragment extends Fragment {
 	                    updateEndDisplay();
 	                }
 	            };
-	            
-	        
-	        protected Dialog onCreateDialog(int id) {
+	        	
+	       protected Dialog onCreateDialog(int id) {
 	            if (id == START_DATE_DIALOG_ID) {
 					return new DatePickerDialog(getActivity(),
 							from_dateListener,
@@ -137,6 +140,12 @@ public class ReportFragment extends Fragment {
 							to_year, to_month, to_day);
 				}
 	            return null;
-	        } 
+	        }
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
+			// TODO Auto-generated method stub
+			
+		} 
 	
 }
