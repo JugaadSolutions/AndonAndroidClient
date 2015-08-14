@@ -15,12 +15,17 @@
     <string-array name="nav_drawer_items">
         <item>Real Time Issue</item>
         <item>Report</item>
+        <item>Report activity</item>
+        
     </string-array>
     
      <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_home</item>
+                
     </array>
 
     <!-- Content Description -->

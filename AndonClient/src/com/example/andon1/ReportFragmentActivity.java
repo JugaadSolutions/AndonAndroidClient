@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReportFragmentActivity extends Activity {
-
-	int from_year, from_month, from_day,to_year, to_month, to_day; //initialize them to current date in onStart()/onCreate()
-	//DatePickerDialog.OnDateSetListener from_dateListener,to_dateListener;
+	
+int from_year, from_month, from_day,to_year, to_month, to_day; 
 	
 	private TextView mDateDisplay;
 	private TextView endDateDisplay;
@@ -29,18 +29,20 @@ public class ReportFragmentActivity extends Activity {
 	static final int START_DATE_DIALOG_ID = 0;
 	static final int END_DATE_DIALOG_ID = 1;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_report_fragment);
 		
-		mDateDisplay = (TextView) findViewById(R.id.mDateDisplay);
+
+		 /*  capture our View elements for the start date function   */
+        mDateDisplay = (TextView) findViewById(R.id.mDateDisplay);
         mPickDate = (Button) findViewById(R.id.mPickDate);
 
         /* add a click listener to the button   */
         mPickDate.setOnClickListener(new View.OnClickListener() {
-            @SuppressWarnings("deprecation")
-			public void onClick(View v) {
+            public void onClick(View v) {
                 showDialog(START_DATE_DIALOG_ID);
             }
         });
@@ -61,8 +63,7 @@ public class ReportFragmentActivity extends Activity {
 
         /* add a click listener to the button   */
         endPickDate.setOnClickListener(new View.OnClickListener() {
-            @SuppressWarnings("deprecation")
-			public void onClick(View v) {
+            public void onClick(View v) {
                 showDialog(END_DATE_DIALOG_ID);
             }
         });
@@ -76,66 +77,63 @@ public class ReportFragmentActivity extends Activity {
 
         /* display the current date (this method is below)  */
         updateEndDisplay();
-	}
-	
-	 private void updateEndDisplay() {
-	        endDateDisplay.setText(
-	                new StringBuilder()
-	                    // Month is 0 based so add 1
-	                    .append(to_day + 1).append("-")
-	                    .append(to_month).append("-")
-	                    .append(to_year).append(" "));
+    }
+    private void updateEndDisplay() {
+        endDateDisplay.setText(
+                new StringBuilder()
+                    // Month is 0 based so add 1
+                    .append(to_day).append("-")
+                    .append(to_month+1).append("-")
+                    .append(to_year).append(" "));
 
+    }
+
+    private void updateStartDisplay() {
+        mDateDisplay.setText(
+                new StringBuilder()
+                    // Month is 0 based so add 1
+                    .append(from_day).append("-")
+                    .append(from_month+1).append("-")
+                    .append(from_year).append(" "));
+
+
+    }
+    private DatePickerDialog.OnDateSetListener from_dateListener  =
+            new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, 
+                                  int monthOfYear, int dayOfMonth) {
+            	from_year = year;
+            	from_month = monthOfYear;
+            	from_day = dayOfMonth;
+                updateStartDisplay();
+            }
+        };
+
+        private DatePickerDialog.OnDateSetListener to_dateListener  =
+                new DatePickerDialog.OnDateSetListener() {
+
+                public void onDateSet(DatePicker view, int year, 
+                                      int monthOfYear, int dayOfMonth) {
+                	to_year = year;
+                    to_month = monthOfYear;
+                    to_day = dayOfMonth;
+                    updateEndDisplay();
+                }
+            };
+        @Override
+        protected Dialog onCreateDialog(int id) {
+            if (id == START_DATE_DIALOG_ID) {
+				return new DatePickerDialog(this,
+						from_dateListener,
+						from_year, from_month, from_day);
+			} else if (id == END_DATE_DIALOG_ID) {
+				return new DatePickerDialog(this,
+						to_dateListener,
+						to_year, to_month, to_day);
+			}
+            return null;
 	    }
-
-	    private void updateStartDisplay() {
-	        mDateDisplay.setText(
-	                new StringBuilder()
-	                    // Month is 0 based so add 1
-	                    .append(from_day + 1).append("-")
-	                    .append(from_month).append("-")
-	                    .append(from_year).append(" "));
-
-	    }
-	    
-	    private DatePickerDialog.OnDateSetListener from_dateListener  =
-	            new DatePickerDialog.OnDateSetListener() {
-
-	            public void onDateSet(DatePicker view, int year, 
-	                                  int monthOfYear, int dayOfMonth) {
-	            	from_year = year;
-	            	from_month = monthOfYear;
-	            	from_day = dayOfMonth;
-	                updateStartDisplay();
-	            }
-	        };
-
-	        private DatePickerDialog.OnDateSetListener to_dateListener  =
-	                new DatePickerDialog.OnDateSetListener() {
-
-	                public void onDateSet(DatePicker view, int year, 
-	                                      int monthOfYear, int dayOfMonth) {
-	                	to_year = year;
-	                    to_month = monthOfYear;
-	                    to_day = dayOfMonth;
-	                    updateEndDisplay();
-	                }
-	            };
-	        @Override
-	        protected Dialog onCreateDialog(int id) {
-	            if (id == START_DATE_DIALOG_ID) {
-					return new DatePickerDialog(this,
-							from_dateListener,
-							from_year, from_month, from_day);
-				} else if (id == END_DATE_DIALOG_ID) {
-					return new DatePickerDialog(this,
-							to_dateListener,
-							to_year, to_month, to_day);
-				}
-	            return null;
-	        }
-	        
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

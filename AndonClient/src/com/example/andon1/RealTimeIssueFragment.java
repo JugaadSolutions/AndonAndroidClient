@@ -1,7 +1,5 @@
 package com.example.andon1;
 
-
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;

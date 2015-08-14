@@ -7,8 +7,23 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
-
-  
+    
+    <Button
+        android:id="@+id/endPickDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mPickDate"
+        android:layout_centerVertical="true"
+        android:text="endPickDate" />
+    
+    <TextView
+        android:id="@+id/mDateDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/mPickDate"
+        android:layout_below="@+id/mPickDate"
+        android:layout_marginTop="20dp"
+        android:text="mDateDisplay" />
 
     <Button
         android:id="@+id/mPickDate"
@@ -16,35 +31,28 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="17dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="74dp"
         android:text="mPickDate" />
 
     <TextView
         android:id="@+id/endDateDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        android:layout_toRightOf="@+id/startpickDate"
+        android:layout_alignRight="@+id/mDateDisplay"
+        android:layout_below="@+id/endPickDate"
+        android:layout_marginTop="20dp"
         android:text="endDateDisplay" />
 
     <Button
-        android:id="@+id/endPickDate"
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/endDateDisplay"
-        android:layout_alignRight="@+id/mPickDate"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="32dp"
-        android:text="endPickDate" />
-
-    <TextView
-        android:id="@+id/mDateDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/mPickDate"
-        android:layout_below="@+id/mPickDate"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="40dp"
-        android:text="mDateDisplay" />
-
+        android:layout_marginRight="23dp"
+        android:text="ok" />
+    
 </RelativeLayout>

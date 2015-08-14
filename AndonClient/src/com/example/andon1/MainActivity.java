@@ -1,18 +1,14 @@
 package com.example.andon1;
 
 import java.util.ArrayList;
-
-
-
 import com.example.andon1.adapter.NavDrawerListAdapter;
 import com.example.andon1.model.NavDrawerItem;
-
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -44,7 +40,6 @@ public class MainActivity extends Activity {
 	private NavDrawerListAdapter adapter;
 	
 	
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +63,8 @@ public class MainActivity extends Activity {
 		// Home
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(2, -1)));
+
 
 				
 		// Recycle the typed array
@@ -159,14 +156,19 @@ public class MainActivity extends Activity {
 				fragment = new RealTimeIssueFragment();
 				break;
 			case 1:
-				fragment = new ReportFragment();
+			fragment = new ReportFragment();
 				break;
+			
+			case 2:
+    			startActivity(new Intent(getApplicationContext(), ReportFragmentActivity.class));
+    			break;					
 						
 			default:
 				break;
 			}
 
 			if (fragment != null) {
+				
 				FragmentManager fragmentManager = getFragmentManager();
 				fragmentManager.beginTransaction()
 				.replace(R.id.frame_container, fragment).commit();

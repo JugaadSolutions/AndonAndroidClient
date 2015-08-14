@@ -1,13 +1,10 @@
 package com.example.andon1;
 
-import java.util.Calendar;
-import java.util.HashMap;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +13,9 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 public class ReportFragment extends DialogFragment
-implements DatePickerDialog.OnDateSetListener
 
 {
-	
-	public ReportFragment(){}
-	  
-
-	int from_year, from_month, from_day,to_year, to_month, to_day; //initialize them to current date in onStart()/onCreate()
-	//DatePickerDialog.OnDateSetListener from_dateListener,to_dateListener;
+	int from_year, from_month, from_day,to_year, to_month, to_day; 
 	
 	private TextView mDateDisplay;
 	private TextView endDateDisplay;
@@ -34,56 +25,18 @@ implements DatePickerDialog.OnDateSetListener
 	//private int mMonth;
 	//private int mDay;
 	static final int START_DATE_DIALOG_ID = 0;
-	static final int END_DATE_DIALOG_ID = 0;
+	static final int END_DATE_DIALOG_ID = 1;
 	
-	
+		public ReportFragment(){}
+  
+		
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_report, container, false);
 		
-		 /*  capture our View elements for the start date function   */
-        mDateDisplay = (TextView) rootView.findViewById(R.id.mDateDisplay);
-        mPickDate = (Button) rootView.findViewById(R.id.mPickDate);
-
-        /* add a click listener to the button   */
-        mPickDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                getActivity().showDialog(START_DATE_DIALOG_ID);
-            }
-        });
-        /* get the current date */
-        final Calendar c = Calendar.getInstance();
-        from_year = c.get(Calendar.YEAR);
-        from_month = c.get(Calendar.MONTH);
-        from_day = c.get(Calendar.DAY_OF_MONTH);
-        
-      
-        /* display the current date (this method is below)  */
-        updateStartDisplay();
-        
-        /* capture our View elements for the end date function */
-        endDateDisplay = (TextView) rootView.findViewById(R.id.endDateDisplay);
-        endPickDate = (Button) rootView.findViewById(R.id.endPickDate);
-
-        /* add a click listener to the button   */
-        endPickDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                getActivity().showDialog(END_DATE_DIALOG_ID);
-            }
-        });
-
-        /* get the current date */
-        final Calendar c1 = Calendar.getInstance();
-        to_year = c.get(Calendar.YEAR);
-        to_month = c.get(Calendar.MONTH);
-        to_day = c.get(Calendar.DAY_OF_MONTH);
-        
-
-        /* display the current date (this method is below)  */
-        updateEndDisplay();
-		
-        return rootView;
+		               
+		        return rootView;
   }
 	 private void updateEndDisplay() {
 	        endDateDisplay.setText(
@@ -128,8 +81,17 @@ implements DatePickerDialog.OnDateSetListener
 	                    updateEndDisplay();
 	                }
 	            };
+	            
+	           
 	        	
-	       protected Dialog onCreateDialog(int id) {
+	            
+	            @Override   
+	            public  Dialog onCreateDialog(Bundle savedInstanceState) {
+	            	
+	            	Bundle bundle = new Bundle();
+	                bundle = getArguments();
+	                int id = bundle.getInt("dialog_id");
+	            	
 	            if (id == START_DATE_DIALOG_ID) {
 					return new DatePickerDialog(getActivity(),
 							from_dateListener,
@@ -141,11 +103,5 @@ implements DatePickerDialog.OnDateSetListener
 				}
 	            return null;
 	        }
-		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
-				int dayOfMonth) {
-			// TODO Auto-generated method stub
-			
-		} 
-	
+		
 }
