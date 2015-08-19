@@ -22,10 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.andon1.ReportFragmentActivity"
-            android:label="@string/title_activity_report_fragment" >
+        <activity android:name="com.example.andon1.ReportFragmentActivity" >
         </activity>
+        
     </application>
 
 </manifest>

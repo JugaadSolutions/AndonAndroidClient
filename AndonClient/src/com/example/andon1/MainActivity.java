@@ -3,8 +3,9 @@ package com.example.andon1;
 import java.util.ArrayList;
 import com.example.andon1.adapter.NavDrawerListAdapter;
 import com.example.andon1.model.NavDrawerItem;
-
 import android.os.Bundle;
+import android.app.ActionBar;
+import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -18,16 +19,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnNavigationListener
+{
 	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
+	ActionBar actionBar;
 
 	// nav drawer title
 	private CharSequence mDrawerTitle;
+    private String[] mFactoryTitles;
+    String result;
+    TextView display, selected;
+    Spinner spinner;
+
+
 
 	// used to store app title
 	private CharSequence mTitle;
@@ -44,6 +58,19 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        actionBar = getActionBar();
+        
+        getActionBar().setDisplayShowTitleEnabled(false);
+        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.Factory_array,
+              android.R.layout.simple_spinner_dropdown_item);
+        
+        
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mFactoryTitles));
+
+
+        getActionBar().setListNavigationCallbacks(mSpinnerAdapter , this);
         
         mTitle = mDrawerTitle = getTitle();
 
@@ -63,7 +90,7 @@ public class MainActivity extends Activity {
 		// Home
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(2, -1)));
+	//	navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(2, -1)));
 
 
 				
@@ -118,6 +145,7 @@ public class MainActivity extends Activity {
 			displayView(position);
 		}
 	}
+	
 
 	 @Override
 		public boolean onOptionsItemSelected(MenuItem item) {
@@ -152,14 +180,16 @@ public class MainActivity extends Activity {
 			// update the main content by replacing fragments
 			Fragment fragment = null;
 			switch (position) {
+			
+					
 			case 0:
 				fragment = new RealTimeIssueFragment();
 				break;
-			case 1:
-			fragment = new ReportFragment();
-				break;
+			//case 1:
+			//fragment = new ReportFragment();
+				//break;
 			
-			case 2:
+			case 1:
     			startActivity(new Intent(getApplicationContext(), ReportFragmentActivity.class));
     			break;					
 						
@@ -208,13 +238,18 @@ public class MainActivity extends Activity {
 			// Pass any configuration change to the drawer toggls
 			mDrawerToggle.onConfigurationChanged(newConfig);
 		}
-
-
+		
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    @Override
+    public boolean onNavigationItemSelected(int arg0, long arg1) {
+         Toast.makeText(getApplicationContext()," text",1000).show();
+        return true;
+    }
+   
     
 }

@@ -2,7 +2,6 @@ package com.example.andon1;
 
 import java.util.Calendar;
 
-import com.example.andon1.R;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ReportFragmentActivity extends Activity {
 	

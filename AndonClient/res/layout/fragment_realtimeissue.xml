@@ -6,7 +6,12 @@
     
      <!-- place your view here -->
     <!-- Listview to display slider menu -->
-   
-    
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>
