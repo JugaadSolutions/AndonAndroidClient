@@ -1,8 +1,6 @@
 package com.example.andon1;
 
 import java.util.Calendar;
-
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.DatePickerDialog;
