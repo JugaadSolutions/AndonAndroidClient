@@ -37,7 +37,7 @@ public class MainActivity extends Activity implements OnNavigationListener
 
 	// nav drawer title
 	private CharSequence mDrawerTitle;
-    private String[] mFactoryTitles;
+    private String[] mFactoryTitles = {"IDF 1", "IDF 2"};
     String result;
     TextView display, selected;
     Spinner spinner;
@@ -66,6 +66,8 @@ public class MainActivity extends Activity implements OnNavigationListener
         SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.Factory_array,
               android.R.layout.simple_spinner_dropdown_item);
         
+        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+
         
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mFactoryTitles));
@@ -83,8 +85,7 @@ public class MainActivity extends Activity implements OnNavigationListener
 				.obtainTypedArray(R.array.nav_drawer_icons);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
+		
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
 		// adding nav drawer items to array
@@ -107,7 +108,7 @@ public class MainActivity extends Activity implements OnNavigationListener
 
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
+		//getActionBar().setHomeButtonEnabled(true);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
@@ -248,7 +249,7 @@ public class MainActivity extends Activity implements OnNavigationListener
     }
     @Override
     public boolean onNavigationItemSelected(int arg0, long arg1) {
-         Toast.makeText(getApplicationContext()," text",1000).show();
+         Toast.makeText(getApplicationContext()," text",Toast.LENGTH_SHORT).show();
         return true;
     }
    
